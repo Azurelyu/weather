@@ -1,27 +1,62 @@
 import requests
+import random
+import time
+import socket
 from bs4 import BeautifulSoup
 import csv
 
-
+# 获取每个城市所对应天气的url
 def get_url(city_name):
     url = 'http://www.weather.com.cn/weather/'
-    with open('city.txt' , 'r' , encoding='utf-8') as fs:
+    with open('D:\pyworkplace\weather1\city.txt' , 'r' , encoding = 'utf-8') as fs:
         lines = fs.readlines:
         if (city_name in line):
             code = line.split('=')[0].strip()
             return url + code + '.shtml'
     raise ValueError('invalid city name')
 
-
+# 对网页获取get请求，得到response对象
 def get_content(url , data=None):
-    try:
-        r = requests.get(url , timeout=30)
-        r.raise_for_status()
-        r.encoding=r.apparent_encoding
-        return r.txt
-    except:
-        return '产生异常'
+    # 模拟浏览器访问
+    header = {
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+        'Accept-Encoding': 'gzip, deflate, sdch',
+        'Accept-Language': 'zh-CN,zh;q=0.8',
+        'Connection': 'keep-alive',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.235'
+    }
+    timeout = random.choice(range(80 , 180))
+    while True:
+        try:
+            rep = requests.get(url , headers = header , timeout = timeout)
+            rep.encoding = 'utf-8'
+            break
+        except socket.timeout as e:
+            print('3:', e)
+            time.sleep(random.choice(range(8, 15)))
+        except socket.error as e:
+            print('4:', e)
+            time.sleep(random.choice(range(20, 60)))
+        except http.client.BadStatusLine as e:
+            print('5:', e)
+            time.sleep(random.choice(range(30, 80)))
+        except http.client.BadStatusLine as e:
+            print('6:', e)
+            time.sleep(random.choice(range(5, 15)))
+# 获取html中我们需要的字段
 
 
-def get_data(html , city)
-    https: // blog.csdn.net / qq_40958485 / article / details / 85067636
+
+
+
+
+
+
+
+
+
+
+
+
+
+    https: // blog.csdn.net / heshushun / article / details / 77772408
